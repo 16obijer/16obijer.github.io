@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeremy Obi | Portfolio</title>
+  <style>
+    /* --- Reset & Base --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8f9fa;
+      color: #212529;
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+      color: #0077b6;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 25px;
+    }
+
+    /* --- Navigation --- */
+    nav {
+      background: #ffffff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 15px 0;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #023e8a;
+    }
+    .nav-links a {
+      margin-left: 30px;
+      color: #343a40;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover {
+      color: #0077b6;
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+      padding: 80px 0 50px;
+      text-align: center;
+      animation: fadeInUp 0.8s ease;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #023e8a;
+    }
+    .hero h1 span {
+      color: #0077b6;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: #6c757d;
+      margin-top: 15px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero .tagline {
+      display: inline-block;
+      background: #e9ecef;
+      padding: 8px 25px;
+      border-radius: 30px;
+      margin-top: 20px;
+      font-weight: 500;
+      color: #343a40;
+    }
+
+    /* --- Section Headers --- */
+    section h2 {
+      font-size: 2rem;
+      text-align: center;
+      margin: 60px 0 40px;
+      color: #023e8a;
+      position: relative;
+    }
+    section h2::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: #0077b6;
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+
+    /* --- Projects Grid --- */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+    .project-card {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid #e9ecef;
+      animation: fadeInUp 0.6s ease both;
+    }
+    /* Staggered animation delay for cards */
+    .project-card:nth-child(1) { animation-delay: 0.05s; }
+    .project-card:nth-child(2) { animation-delay: 0.1s; }
+    .project-card:nth-child(3) { animation-delay: 0.15s; }
+    .project-card:nth-child(4) { animation-delay: 0.2s; }
+    .project-card:nth-child(5) { animation-delay: 0.25s; }
+    .project-card:nth-child(6) { animation-delay: 0.3s; }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    .project-icon {
+      font-size: 2.6rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .project-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+      color: #023e8a;
+    }
+    .project-card .tech {
+      font-size: 0.85rem;
+      color: #0077b6;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .project-card p {
+      color: #495057;
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+    }
+    .project-card .btn {
+      display: inline-block;
+      padding: 8px 20px;
+      background: #0077b6;
+      color: #fff;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+    .project-card .btn:hover {
+      background: #023e8a;
+    }
+
+    /* --- Skills Section --- */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 40px;
+    }
+    .skill-tag {
+      background: #e9ecef;
+      padding: 8px 22px;
+      border-radius: 30px;
+      font-weight: 500;
+      color: #343a40;
+      transition: background 0.2s;
+    }
+    .skill-tag:hover {
+      background: #dee2e6;
+    }
+
+    /* --- Contact & Footer --- */
+    .contact-info {
+      text-align: center;
+      background: #ffffff;
+      padding: 40px 20px;
+      border-radius: 12px;
+      margin: 40px 0 60px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    }
+    .contact-info p {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+    .contact-info .social-links a {
+      display: inline-block;
+      margin: 10px 15px 0;
+      font-weight: 500;
+      color: #0077b6;
+      transition: color 0.3s;
+    }
+    .contact-info .social-links a:hover {
+      color: #023e8a;
+    }
+    footer {
+      text-align: center;
+      padding: 30px 0;
+      color: #6c757d;
+      border-top: 1px solid #e9ecef;
+    }
+
+    /* --- Animations --- */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 700px) {
+      .nav-container {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .nav-links a {
+        margin: 0 12px;
+        font-size: 0.95rem;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container nav-container">
+      <div class="logo">Jeremy Obi</div>
+      <div class="nav-links">
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero container">
+    <h1>Hi, I'm <span>Jeremy Obi</span></h1>
+    <p>Computer Science grad (First Class) building data-driven solutions, web apps, and machine learning models.</p>
+    <span class="tagline">📍 London, UK</span>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="container">
+      <h2>🚀 Projects</h2>
+      <div class="project-grid">
+
+        <!-- Project 1 -->
+        <div class="project-card">
+          <span class="project-icon">📈</span>
+          <h3>CrossQuant – Financial Platform</h3>
+          <span class="tech">Django · React · XGBoost</span>
+          <p>Full-stack platform linking derivatives trading with housing data. Real-time portfolio tracking, P&L, and sentiment analysis from financial news.</p>
+          <a href="https://github.com/16obijer/crossquant" class="btn" target="_blank">View Project</a>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card">
+          <span class="project-icon">📊</span>
+          <h3>Credit Risk Analysis</h3>
+          <span class="tech">Python · Pandas · Matplotlib</span>
+          <p>Analysed 21,500 loan records to identify key default risk factors like high debt-to-income and low credit scores.</p>
+          <a href="https://github.com/16obijer/credit-risk-analysis" class="btn" target="_blank">View Project</a>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card">
+          <span class="project-icon">🎓</span>
+          <h3>Bayesian Grade Prediction</h3>
+          <span class="tech">Python · pgmpy</span>
+          <p>Probabilistic model predicting student grades with 84.7% accuracy using MLE and Gibbs sampling. Study time is the strongest predictor.</p>
+          <a href="https://github.com/16obijer/bayesian-grade-prediction" class="btn" target="_blank">View Project</a>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="project-card">
+          <span class="project-icon">🏳️</span>
+          <h3>Country & Capital Game</h3>
+          <span class="tech">JavaScript · AJAX · APIs</span>
+          <p>Interactive game matching flags to capitals with real-time API data, instant feedback, and score tracking.</p>
+          <a href="https://github.com/16obijer/country-capital-game" class="btn" target="_blank">View Project</a>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="project-card">
+          <span class="project-icon">🔒</span>
+          <h3>Secure Recruitment Platform</h3>
+          <span class="tech">PHP · CodeIgniter · MySQL</span>
+          <p>Full-stack web app with SHA-1 encryption, role-based access control, and secure user management for recruiters and job seekers.</p>
+          <a href="https://github.com/16obijer/secure-recruitment-platform" class="btn" target="_blank">View Project</a>
+        </div>
+
+        <!-- Project 6 -->
+        <div class="project-card">
+          <span class="project-icon">🌳</span>
+          <h3>Java Binary Search Tree</h3>
+          <span class="tech">Java</span>
+          <p>Built a BST from scratch with DFS traversal, node deletion, and search operations. A solid exercise in data structures and algorithms.</p>
+          <a href="https://github.com/16obijer/bst-dfs-java" class="btn" target="_blank">View Project</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <div class="container">
+      <h2>🛠️ Skills</h2>
+      <div class="skills-grid">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">Django</span>
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">PHP</span>
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">XGBoost</span>
+        <span class="skill-tag">Pandas</span>
+        <span class="skill-tag">Power BI</span>
+        <span class="skill-tag">Tableau</span>
+        <span class="skill-tag">Git</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-info">
+        <h2 style="margin-top:0;">📫 Get in Touch</h2>
+        <p>📧 <a href="mailto:jeremyobi05@gmail.com">jeremyobi05@gmail.com</a></p>
+        <p>📱 07397199090</p>
+        <div class="social-links">
+          <a href="https://github.com/16obijer" target="_blank">GitHub</a>
+          <a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>
+          <a href="mailto:jeremyobi05@gmail.com">Email</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>© 2026 Jeremy Obi · London, UK</p>
+    </div>
+  </footer>
+
+</body>
+</html>
