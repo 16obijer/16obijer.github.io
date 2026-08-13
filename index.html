@@ -142,6 +142,8 @@
             border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
         .project-card:hover {
             transform: translateY(-5px);
@@ -149,15 +151,38 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         }
 
+        /* THE FIX: pointer-events: none lets clicks pass through the overlay */
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(123, 47, 252, 0.05));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            border-radius: 20px;
+            pointer-events: none; /* ← THIS FIXES THE BUTTONS */
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
         .project-card h3 {
             color: #00d4ff;
             margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
         }
         .project-card .tech {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
             margin: 10px 0 15px;
+            position: relative;
+            z-index: 1;
         }
         .project-card .tech span {
             padding: 4px 14px;
@@ -171,9 +196,11 @@
             color: rgba(255, 255, 255, 0.7);
             font-size: 0.95rem;
             margin-bottom: 18px;
+            position: relative;
+            z-index: 1;
         }
 
-        /* THE BUTTON THAT WORKS - Same style for all projects */
+        /* THE BUTTON - Now it will work! */
         .btn {
             display: inline-block;
             padding: 10px 28px;
@@ -186,6 +213,8 @@
             border: none;
             cursor: pointer;
             text-decoration: none;
+            position: relative;
+            z-index: 2; /* Ensure button is above everything */
         }
         .btn:hover {
             transform: translateY(-2px);
