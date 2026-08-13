@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeremy Obi | Portfolio</title>
     <style>
+        /* --- Reset & Base --- */
         * {
             margin: 0;
             padding: 0;
@@ -18,24 +19,90 @@
             background: #0a0a1a;
             color: #ffffff;
             line-height: 1.6;
+            overflow-x: hidden;
         }
         a {
             text-decoration: none;
+            color: #00d4ff;
         }
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 30px;
         }
 
-        /* Navigation */
-        nav {
-            background: rgba(10, 10, 26, 0.95);
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
-            position: sticky;
+        /* --- Animated Background --- */
+        .bg-animation {
+            position: fixed;
             top: 0;
-            z-index: 100;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0a0a1a 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00d4ff;
+            border-radius: 50%;
+            animation: floatParticle linear infinite;
+            opacity: 0.3;
+        }
+        .particle:nth-child(1) { left: 10%; animation-duration: 20s; animation-delay: 0s; width: 6px; height: 6px; }
+        .particle:nth-child(2) { left: 20%; animation-duration: 25s; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 30%; animation-duration: 18s; animation-delay: 4s; width: 8px; height: 8px; }
+        .particle:nth-child(4) { left: 40%; animation-duration: 22s; animation-delay: 1s; }
+        .particle:nth-child(5) { left: 50%; animation-duration: 28s; animation-delay: 3s; width: 5px; height: 5px; }
+        .particle:nth-child(6) { left: 60%; animation-duration: 16s; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-duration: 24s; animation-delay: 2s; width: 7px; height: 7px; }
+        .particle:nth-child(8) { left: 80%; animation-duration: 19s; animation-delay: 4s; }
+        .particle:nth-child(9) { left: 90%; animation-duration: 26s; animation-delay: 1s; width: 4px; height: 4px; }
+        .particle:nth-child(10) { left: 95%; animation-duration: 21s; animation-delay: 3s; }
+
+        @keyframes floatParticle {
+            0% { top: -10%; opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { top: 110%; opacity: 0; }
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            background: rgba(10, 10, 26, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        nav.scrolled {
+            padding: 12px 0;
+            background: rgba(10, 10, 26, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
         .nav-container {
             display: flex;
@@ -43,38 +110,56 @@
             align-items: center;
         }
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
-            color: #00d4ff;
+            background: linear-gradient(45deg, #00d4ff, #7b2ffc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         .nav-links a {
             color: rgba(255, 255, 255, 0.7);
-            margin-left: 30px;
-            transition: color 0.3s;
+            margin-left: 35px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 0.95rem;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #00d4ff, #7b2ffc);
+            transition: width 0.3s ease;
         }
         .nav-links a:hover {
-            color: #00d4ff;
+            color: #ffffff;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
-        /* Hero */
+        /* --- Hero Section --- */
         .hero {
-            text-align: center;
-            padding: 80px 0 60px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            position: relative;
         }
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 800;
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
         }
-        .hero h1 span {
-            color: #00d4ff;
+        .hero-text {
+            animation: fadeInLeft 1s ease;
         }
-        .hero p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 20px auto;
-        }
-        .badge {
+        .hero-text .badge {
             display: inline-block;
             padding: 6px 20px;
             background: rgba(0, 212, 255, 0.1);
@@ -84,74 +169,144 @@
             color: #00d4ff;
             margin-bottom: 20px;
         }
-
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        .hero-text h1 .highlight {
+            background: linear-gradient(45deg, #00d4ff, #7b2ffc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-text p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 500px;
+            margin-bottom: 30px;
+        }
+        .hero-text .cta-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
         .btn-primary {
-            display: inline-block;
             padding: 14px 40px;
-            background: #00d4ff;
-            color: #000;
-            font-weight: 600;
+            background: linear-gradient(45deg, #00d4ff, #7b2ffc);
+            border: none;
             border-radius: 50px;
-            margin: 10px;
-            transition: all 0.3s;
+            color: #fff;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
         }
         .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
         }
         .btn-secondary {
-            display: inline-block;
             padding: 14px 40px;
             background: transparent;
             border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
             color: #fff;
             font-weight: 600;
-            border-radius: 50px;
-            margin: 10px;
-            transition: all 0.3s;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
         }
         .btn-secondary:hover {
             border-color: #00d4ff;
             transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.1);
         }
 
-        /* Projects */
-        .projects {
-            padding: 60px 0;
+        .hero-image {
+            animation: fadeInRight 1s ease;
+            display: flex;
+            justify-content: center;
+        }
+        .hero-image img {
+            width: 100%;
+            max-width: 450px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.5s ease;
+        }
+        .hero-image img:hover {
+            transform: scale(1.02) rotate(-1deg);
+        }
+
+        /* Animations */
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* --- Section Headers --- */
+        section {
+            padding: 80px 0;
         }
         .section-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
         .section-header h2 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .section-header h2 .highlight {
+            background: linear-gradient(45deg, #00d4ff, #7b2ffc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         .section-header p {
             color: rgba(255, 255, 255, 0.6);
+            font-size: 1.1rem;
         }
 
+        /* --- Projects Grid --- */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 30px;
         }
-
         .project-card {
             background: rgba(255, 255, 255, 0.03);
-            padding: 25px;
-            border-radius: 15px;
+            border-radius: 20px;
+            padding: 30px;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 0.8s ease forwards;
         }
-        .project-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(0, 212, 255, 0.2);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:nth-child(4) { animation-delay: 0.4s; }
+        .project-card:nth-child(5) { animation-delay: 0.5s; }
+        .project-card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* THE FIX: pointer-events: none lets clicks pass through the overlay */
+        /* FIX: The overlay now lets clicks pass through */
         .project-card::before {
             content: '';
             position: absolute;
@@ -163,26 +318,75 @@
             opacity: 0;
             transition: opacity 0.4s ease;
             border-radius: 20px;
-            pointer-events: none; /* ← THIS FIXES THE BUTTONS */
+            pointer-events: none; /* THIS FIXES THE BUTTONS */
         }
-
         .project-card:hover::before {
             opacity: 1;
         }
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 212, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
 
-        .project-card h3 {
-            color: #00d4ff;
-            margin-bottom: 10px;
+        /* Make sure content is above the overlay */
+        .project-card h3,
+        .project-card .tech,
+        .project-card p,
+        .project-card .btn {
             position: relative;
             z-index: 1;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+        .project-image .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 26, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .project-card:hover .overlay {
+            opacity: 1;
+        }
+        .project-image .overlay span {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .project-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: #fff;
         }
         .project-card .tech {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin: 10px 0 15px;
-            position: relative;
-            z-index: 1;
+            margin-bottom: 15px;
         }
         .project-card .tech span {
             padding: 4px 14px;
@@ -196,66 +400,65 @@
             color: rgba(255, 255, 255, 0.7);
             font-size: 0.95rem;
             margin-bottom: 18px;
-            position: relative;
-            z-index: 1;
         }
-
-        /* THE BUTTON - Now it will work! */
-        .btn {
+        .project-card .btn {
             display: inline-block;
             padding: 10px 28px;
-            background: #00d4ff;
-            color: #000;
-            font-weight: 600;
+            background: linear-gradient(45deg, #00d4ff, #7b2ffc);
             border-radius: 30px;
+            color: #fff;
+            font-weight: 600;
             font-size: 0.85rem;
             transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            position: relative;
-            z-index: 2; /* Ensure button is above everything */
         }
-        .btn:hover {
+        .project-card .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(0, 212, 255, 0.2);
         }
 
-        /* Skills */
-        .skills {
-            padding: 60px 0;
-            text-align: center;
-        }
+        /* --- Skills Section --- */
         .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            max-width: 800px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
+            max-width: 900px;
             margin: 0 auto;
         }
         .skill-item {
+            text-align: center;
+            padding: 20px;
             background: rgba(255, 255, 255, 0.03);
-            padding: 15px 25px;
-            border-radius: 30px;
+            border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 0.9rem;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            cursor: default;
         }
         .skill-item:hover {
+            transform: translateY(-5px);
             background: rgba(0, 212, 255, 0.05);
             border-color: rgba(0, 212, 255, 0.2);
         }
+        .skill-item img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .skill-item .name {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
 
-        /* Contact */
-        .contact {
-            padding: 60px 0;
+        /* --- Contact Section --- */
+        .contact-section {
             text-align: center;
         }
         .contact-card {
             max-width: 600px;
             margin: 0 auto;
-            padding: 40px;
+            padding: 50px;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -269,53 +472,97 @@
             font-size: 1.1rem;
             margin-bottom: 8px;
         }
-        .contact-card a {
-            color: #00d4ff;
-        }
-        .social-links {
+        .contact-card .social-links {
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin-top: 20px;
+            margin-top: 25px;
         }
-        .social-links a {
+        .contact-card .social-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             padding: 10px 25px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 30px;
             color: rgba(255, 255, 255, 0.8);
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             font-size: 0.9rem;
         }
-        .social-links a:hover {
+        .contact-card .social-links a:hover {
             background: rgba(0, 212, 255, 0.1);
             color: #00d4ff;
+            transform: translateY(-3px);
+        }
+        .contact-card .social-links a img {
+            width: 20px;
+            height: 20px;
         }
 
+        /* --- Footer --- */
         footer {
             text-align: center;
-            padding: 30px 0;
+            padding: 40px 0;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             color: rgba(255, 255, 255, 0.3);
             font-size: 0.9rem;
         }
 
+        /* --- Responsive --- */
+        @media (max-width: 992px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-text p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-text .cta-buttons {
+                justify-content: center;
+            }
+            .hero-image img {
+                max-width: 350px;
+            }
+        }
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
-            .hero h1 {
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            .section-header h2 {
                 font-size: 2rem;
             }
             .project-grid {
                 grid-template-columns: 1fr;
+            }
+            .contact-card {
+                padding: 30px 20px;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- Animated Background -->
+    <div class="bg-animation"></div>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
     <!-- Navigation -->
-    <nav>
+    <nav id="navbar">
         <div class="container nav-container">
             <div class="logo">Jeremy Obi</div>
             <div class="nav-links">
@@ -328,17 +575,24 @@
 
     <!-- Hero -->
     <section class="hero">
-        <div class="container">
-            <div class="badge">Open to Opportunities</div>
-            <h1>Hi, I'm <span>Jeremy Obi</span></h1>
-            <p>Computer Science graduate (First Class) building data-driven solutions, web apps, and machine learning models.</p>
-            <a href="#projects" class="btn-primary">View My Work</a>
-            <a href="#contact" class="btn-secondary">Get in Touch</a>
+        <div class="container hero-content">
+            <div class="hero-text">
+                <div class="badge">Open to Opportunities</div>
+                <h1>Hi, I'm <span class="highlight">Jeremy Obi</span></h1>
+                <p>Computer Science graduate (First Class) building data-driven solutions, web apps, and machine learning models.</p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn-primary">View My Work</a>
+                    <a href="#contact" class="btn-secondary">Get in Touch</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&h=500&fit=crop&crop=center" alt="Jeremy Obi">
+            </div>
         </div>
     </section>
 
     <!-- Projects -->
-    <section id="projects" class="projects">
+    <section id="projects">
         <div class="container">
             <div class="section-header">
                 <h2>Projects</h2>
@@ -348,6 +602,10 @@
 
                 <!-- Project 1: CrossQuant -->
                 <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=400&fit=crop&crop=center" alt="Finance">
+                        <div class="overlay"><span>View</span></div>
+                    </div>
                     <h3>CrossQuant – Financial Platform</h3>
                     <div class="tech">
                         <span>Django</span>
@@ -361,6 +619,10 @@
 
                 <!-- Project 2: Credit Risk -->
                 <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop&crop=center" alt="Credit Risk">
+                        <div class="overlay"><span>View</span></div>
+                    </div>
                     <h3>Credit Risk Analysis</h3>
                     <div class="tech">
                         <span>Python</span>
@@ -374,6 +636,10 @@
 
                 <!-- Project 3: Bayesian Network -->
                 <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=400&fit=crop&crop=center" alt="Education">
+                        <div class="overlay"><span>View</span></div>
+                    </div>
                     <h3>Bayesian Grade Prediction</h3>
                     <div class="tech">
                         <span>Python</span>
@@ -387,6 +653,10 @@
 
                 <!-- Project 4: Country Game -->
                 <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=600&h=400&fit=crop&crop=center" alt="Flags">
+                        <div class="overlay"><span>View</span></div>
+                    </div>
                     <h3>Country & Capital Game</h3>
                     <div class="tech">
                         <span>JavaScript</span>
@@ -399,6 +669,10 @@
 
                 <!-- Project 5: Recruitment Platform -->
                 <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop&crop=center" alt="Security">
+                        <div class="overlay"><span>View</span></div>
+                    </div>
                     <h3>Secure Recruitment Platform</h3>
                     <div class="tech">
                         <span>PHP</span>
@@ -412,6 +686,10 @@
 
                 <!-- Project 6: BST Java -->
                 <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600&h=400&fit=crop&crop=center" alt="Code">
+                        <div class="overlay"><span>View</span></div>
+                    </div>
                     <h3>Java Binary Search Tree</h3>
                     <div class="tech">
                         <span>Java</span>
@@ -427,39 +705,81 @@
     </section>
 
     <!-- Skills -->
-    <section id="skills" class="skills">
+    <section id="skills">
         <div class="container">
             <div class="section-header">
                 <h2>Skills</h2>
                 <p>Technologies and tools I work with</p>
             </div>
             <div class="skills-grid">
-                <span class="skill-item">Python</span>
-                <span class="skill-item">Java</span>
-                <span class="skill-item">JavaScript</span>
-                <span class="skill-item">React</span>
-                <span class="skill-item">Django</span>
-                <span class="skill-item">PHP</span>
-                <span class="skill-item">MySQL</span>
-                <span class="skill-item">Pandas</span>
-                <span class="skill-item">Git</span>
-                <span class="skill-item">Linux</span>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                    <div class="name">Python</div>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
+                    <div class="name">Java</div>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+                    <div class="name">JavaScript</div>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
+                    <div class="name">React</div>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="Django">
+                    <div class="name">Django</div>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP">
+                    <div class="name">PHP</div>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL">
+                    <div class="name">MySQL</div>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas">
+                    <div class="name">Pandas</div>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+                    <div class="name">Git</div>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux">
+                    <div class="name">Linux</div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="contact">
-        <div class="container">
+    <section id="contact">
+        <div class="container contact-section">
+            <div class="section-header">
+                <h2>Get in Touch</h2>
+                <p>Let's connect and build something together</p>
+            </div>
             <div class="contact-card">
                 <h3>Let's Talk</h3>
                 <p><a href="mailto:jeremyobi05@gmail.com">jeremyobi05@gmail.com</a></p>
                 <p>07397199090</p>
-                <p style="color: rgba(255,255,255,0.4);">London, UK</p>
+                <p style="color: rgba(255,255,255,0.4); font-size: 0.9rem;">London, UK</p>
                 <div class="social-links">
-                    <a href="https://github.com/16obijer" target="_blank">GitHub</a>
-                    <a href="https://www.linkedin.com/in/jeremy-obi-4b4946257/" target="_blank">LinkedIn</a>
-                    <a href="mailto:jeremyobi05@gmail.com">Email</a>
+                    <a href="https://github.com/16obijer" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+                        GitHub
+                    </a>
+                    <a href="https://www.linkedin.com/in/jeremy-obi-4b4946257/" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn">
+                        LinkedIn
+                    </a>
+                    <a href="mailto:jeremyobi05@gmail.com">
+                        Email
+                    </a>
                 </div>
             </div>
         </div>
@@ -471,6 +791,18 @@
             <p>© 2026 Jeremy Obi · London, UK</p>
         </div>
     </footer>
+
+    <!-- Scroll Effect for Navbar -->
+    <script>
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
 
 </body>
 </html>
