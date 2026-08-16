@@ -286,9 +286,21 @@
             margin: 0 auto;
         }
 
-        /* Make last row centered when there are only 2 items */
-        .project-grid:last-child {
-            justify-content: center;
+        /* Center the last row with 2 cards */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        /* Target the last row specifically */
+        .project-card:nth-child(4) {
+            grid-column: 1 / 2;
+            justify-self: end;
+        }
+        .project-card:nth-child(5) {
+            grid-column: 2 / 3;
+            justify-self: start;
         }
 
         .project-card {
@@ -304,16 +316,6 @@
             animation: fadeInUp 0.8s ease forwards;
             display: flex;
             flex-direction: column;
-        }
-
-        /* Center the last row with 2 cards */
-        .project-card:nth-child(4) {
-            grid-column: 1 / 2;
-            justify-self: end;
-        }
-        .project-card:nth-child(5) {
-            grid-column: 2 / 3;
-            justify-self: start;
         }
 
         .project-card:nth-child(1) { animation-delay: 0.1s; }
