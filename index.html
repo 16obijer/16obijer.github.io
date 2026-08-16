@@ -278,15 +278,21 @@
         }
 
         /* --- Projects Grid --- */
+        /* Flexbox instead of CSS Grid: justify-content: center automatically
+           centers a short final row (e.g. 2 cards after a row of 3), which
+           Grid does not do without extra hacks. */
         .project-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .project-card {
+            flex: 1 1 300px;
+            max-width: calc(33.333% - 20px);
             background: rgba(255, 255, 255, 0.03);
             border-radius: 20px;
             padding: 30px;
@@ -306,16 +312,6 @@
         .project-card:nth-child(3) { animation-delay: 0.3s; }
         .project-card:nth-child(4) { animation-delay: 0.4s; }
         .project-card:nth-child(5) { animation-delay: 0.5s; }
-
-        /* CENTER THE LAST ROW WITH 2 CARDS */
-        .project-card:nth-child(4) {
-            grid-column: 2 / 3;
-            justify-self: end;
-        }
-        .project-card:nth-child(5) {
-            grid-column: 3 / 4;
-            justify-self: start;
-        }
 
         @keyframes fadeInUp {
             to { opacity: 1; transform: translateY(0); }
@@ -540,16 +536,8 @@
             .hero-image img {
                 max-width: 350px;
             }
-            .project-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .project-card:nth-child(4) {
-                grid-column: auto;
-                justify-self: auto;
-            }
-            .project-card:nth-child(5) {
-                grid-column: auto;
-                justify-self: auto;
+            .project-card {
+                max-width: calc(50% - 15px);
             }
         }
         @media (max-width: 768px) {
@@ -562,8 +550,8 @@
             .section-header h2 {
                 font-size: 2rem;
             }
-            .project-grid {
-                grid-template-columns: 1fr;
+            .project-card {
+                max-width: 100%;
             }
             .contact-card {
                 padding: 30px 20px;
