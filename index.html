@@ -280,9 +280,17 @@
         /* --- Projects Grid --- */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
+
+        /* Make last row centered when there are only 2 items */
+        .project-grid:last-child {
+            justify-content: center;
+        }
+
         .project-card {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 20px;
@@ -294,13 +302,25 @@
             opacity: 0;
             transform: translateY(40px);
             animation: fadeInUp 0.8s ease forwards;
+            display: flex;
+            flex-direction: column;
         }
+
+        /* Center the last row with 2 cards */
+        .project-card:nth-child(4) {
+            grid-column: 1 / 2;
+            justify-self: end;
+        }
+        .project-card:nth-child(5) {
+            grid-column: 2 / 3;
+            justify-self: start;
+        }
+
         .project-card:nth-child(1) { animation-delay: 0.1s; }
         .project-card:nth-child(2) { animation-delay: 0.2s; }
         .project-card:nth-child(3) { animation-delay: 0.3s; }
         .project-card:nth-child(4) { animation-delay: 0.4s; }
         .project-card:nth-child(5) { animation-delay: 0.5s; }
-        .project-card:nth-child(6) { animation-delay: 0.6s; }
 
         @keyframes fadeInUp {
             to { opacity: 1; transform: translateY(0); }
@@ -398,6 +418,7 @@
             color: rgba(255, 255, 255, 0.7);
             font-size: 0.95rem;
             margin-bottom: 18px;
+            flex-grow: 1;
         }
         .project-card .btn {
             display: inline-block;
@@ -408,6 +429,8 @@
             font-weight: 600;
             font-size: 0.85rem;
             transition: all 0.3s ease;
+            text-align: center;
+            align-self: flex-start;
         }
         .project-card .btn:hover {
             transform: translateY(-2px);
@@ -522,6 +545,17 @@
             .hero-image img {
                 max-width: 350px;
             }
+            .project-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .project-card:nth-child(4) {
+                grid-column: auto;
+                justify-self: auto;
+            }
+            .project-card:nth-child(5) {
+                grid-column: auto;
+                justify-self: auto;
+            }
         }
         @media (max-width: 768px) {
             .nav-links {
@@ -615,7 +649,7 @@
                     <a href="https://github.com/16obijer/crossquant" class="btn" target="_blank">View Project →</a>
                 </div>
 
-                <!-- Project 2: Credit Risk Predictor (NEW) -->
+                <!-- Project 2: Credit Risk Predictor -->
                 <div class="project-card">
                     <div class="project-image">
                         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop&crop=center" alt="Credit Risk">
@@ -629,7 +663,7 @@
                         <span>Plotly</span>
                     </div>
                     <p>Interactive web app that predicts loan default risk using machine learning. Trained on 32,000+ loan records with 83.9% accuracy. Users enter their details and get a personalised risk assessment.</p>
-                    <a href="https://credit-risk-analysis-16obijer.streamlit.app" class="btn" target="_blank">View App →</a>
+                    <a href="https://credit-risk-predictor-16.streamlit.app" class="btn" target="_blank">View App →</a>
                 </div>
 
                 <!-- Project 3: Bayesian Network -->
